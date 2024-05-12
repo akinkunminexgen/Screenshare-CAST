@@ -1,0 +1,211 @@
+{% extends "layout/navadmin.html" %}
+{% block title %}Dashboard{% endblock %}
+
+
+{% block content %}
+  
+    <div class="content-wrapper" style="min-height: 288.4px">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>AIA-Cast. (Welcome! {{user['Firstname']}})</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">FFMPEG</li>
+                <li class="breadcrumb-item active"><a href="{{url_for('logout')}}">Logout</a></li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+    {% if user['role'].lower() == 'admin' %}
+      <!--Admin section-->
+      <section class="content">
+        <form method="post">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">For Admin</h3>
+                  </div>
+                  <div class="card-body">
+                    <div>{% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <div class="col-lg mx-auto bg-danger text-primary text-center">
+                        {% for message in messages %}
+                          {{ message | safe }}
+                        {% endfor %}
+                        </div>
+                      {% endif %}
+                    {% endwith %} </div>
+
+
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <h5>Create new session: </h5>
+                      </div>
+                      <div class="col-sm-7 text-center">
+                        <a class="btn btn-app " id="pin_create">
+                          <i class="fas fa-key"></i> Create
+                        </a>
+                        <span class="text-success" id="spanpin"></span>
+                        <input type="hidden" name="pin" id="pin">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-5">
+                        <h5>Timer:</h5>
+                      </div>
+                      <div class="col-md-7 text-center">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <button type="button" id="add5" value="5" class="btn btn-primary cal" >
+                              <i class="fas fa-plus"></i> 5
+                            </button>
+                          </div>
+                          <!-- /btn-group -->
+                          <input name="to_check" type="hidden" value="admin" class="form-control">
+                          <input id="calculate" name="timer" type="text" value="0" class="form-control" readonly>
+                          <span class="input-group-append">
+                            <button type="button" id="minus1" value="1" class="btn btn-warning cal">
+                              <i class="fas fa-minus"></i> 1
+                            </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-5">
+                        <h5>Initiate:</h5>
+                      </div>
+                      <div class="col-md-7 text-center">
+                        <button type="submit" class="btn btn-app" name="btn" value="savebtn">
+                          <i class="fas fa-save"></i> Save
+                        </button>
+                        <button class="btn btn-app" name="btn" value="startbtn">
+                          <i class="fas fa-play"></i> Start
+                        </button>
+                        <button class="btn btn-app" name="btn" value="stopbtn">
+                          <i class="fas fa-stop"></i> Stop
+                        </button>
+                      </div>
+                    </div>                 
+                  
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+      <!--Admin section ends-->
+{% else %}
+      <!---For the User-->
+      <section class="content">
+        <form method="post">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">For User</h3>
+                  </div>
+                  <div class="card-body">
+                    <div>{% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <div class="col-lg mx-auto bg-danger text-primary text-center">
+                        {% for message in messages %}
+                          {{ message }}
+                        {% endfor %}
+                        </div>
+                      {% endif %}
+                    {% endwith %} </div>
+
+
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <h5>Enter ticket: </h5>
+                      </div>
+                      <div class="col-sm-7 text-center">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <a type="button" class="btn btn-primary" >
+                              <i class="fas fa-envelope"></i>
+                            </a>
+                          </div>
+                          <!-- /btn-group -->
+                          <input name="pin" type="text" class="form-control" required>
+                          <input name="to_check" type="hidden" value="user" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-5">
+                        <h5>Initiate:</h5>
+                      </div>
+                      <div class="col-md-7 text-center">
+                        <button type="submit" class="btn btn-app" name="btn" value="startbtn">
+                          <i class="fas fa-play"></i> Start
+                        </button>
+                        <button class="btn btn-app" name="btn" value="stopbtn">
+                          <i class="fas fa-stop"></i> Stop
+                        </button>
+                      </div>
+                    </div>                 
+                  
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+      <!--- The user section ends  -->
+  {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block scripting %}
+
+<script>
+  $(document).ready(function(){
+    var cal = 0;
+    $(".cal").click(function(){
+      var add5 = parseInt($("#add5").val());
+      var minus1 = parseInt($("#minus1").val());
+      var inc = parseInt($('#calculate').val());
+      var dis = parseInt($(this).val());
+      if(dis === minus1){
+        cal = inc - dis;
+        if(cal < 0){ // Check if the result is negative and set it to 0
+          cal = 0;
+        } 
+        $('#calculate').val(cal);
+      } else {
+        cal = inc + dis;
+        $('#calculate').val(cal);
+      }
+    });
+
+    
+    $("#pin_create").click(function(){
+        var randomNumber = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000; 
+        $("#pin").val(randomNumber);
+        $('#spanpin').html(randomNumber)
+      });
+
+      });
+  </script>
+
+{% endblock %}

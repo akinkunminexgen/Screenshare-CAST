@@ -1,0 +1,60 @@
+{
+    "User": {
+        "abramiz": {
+            "Lastname": "Akinkunmi",
+            "Firstname": "Owolabi",
+            "designation": "programmer",
+            "age": "34",
+            "sex": "Male",
+            "password": "$2b$12$Tb1Gn/JFLUJCatGrhY0ewuW3k1ImYGHRGqQSz8Zw7L0x4mXo6ZVMC",
+            "role": "Admin"
+        },
+        "andre": {
+            "Lastname": "Andre",
+            "Firstname": "Barbados",
+            "designation": "Network Administrator",
+            "age": "45",
+            "sex": "Male",
+            "password": "$2b$12$Tb1Gn/JFLUJCatGrhY0ewuW3k1ImYGHRGqQSz8Zw7L0x4mXo6ZVMC",
+            "role": "user"
+        },
+        "idekky": {
+            "Firstname": "Idoreyin",
+            "Lastname": "Ekanem",
+            "designation": "Web developer",
+            "age": "25",
+            "gender": "Male",
+            "role": "Student",
+            "password": "$2b$12$PffdMFBdMEz9ZqcTkzF.deCTlgYQOiX0I.MrPGKW85R80WovwLfHm"
+        },
+        "asqbola": {
+            "Firstname": "AMobolai",
+            "Lastname": "Giant",
+            "designation": "banker",
+            "age": "28",
+            "gender": "Female",
+            "role": "Student",
+            "password": "$2b$12$EsLOd/Vjh.FQYCviw4lYs.QcMCntjCJdCpkVv5o9HxS1CyPRwdCCK"
+        },
+        "baddest": {
+            "Firstname": "Mario",
+            "Lastname": "Arnold",
+            "designation": "Footballer",
+            "age": "18",
+            "gender": "Male",
+            "role": "Admin",
+            "password": "$2b$12$2s3t9e8dtgDiWY6Lm3H1guy7ZQ1BcqQfkIkpXEiwyHbmUJQYEpxrW"
+        }
+    },
+    "Ticket": {
+        "9559": {
+            "timer": "5"
+        },
+        "4812": {
+            "timer": "5"
+        },
+        "7793": {
+            "timer": "5"
+        }
+    }
+}
