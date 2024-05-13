@@ -63,15 +63,14 @@ class FFmpegCommandWithTimeLimit:
     
     def killer(self):
         kill_4_windows = f"taskkill /IM ffplay.exe /F"
-        kill_4_linux = "sudo pkill -9 ffplay"
-        subprocess.run(kill_4_windows, shell=True)
+        kill_4_linux = "sudo pkill -9 ffplay"        
         self.stop_event.set()  # Set the stop event to signal the thread to stop
-        self.process.kill()
         if self.process:
+            subprocess.run(kill_4_windows, shell=True)
             self.process.kill()
     
     def killer_client(self):
-        kill_4_windows = f"taskkill /IM exe2.exe /F"
+        kill_4_windows = f"taskkill /IM exe2* /F"
         kill_4_linux = "sudo pkill -9 exe2"
         try:
             subprocess.run(kill_4_windows, shell=True)
