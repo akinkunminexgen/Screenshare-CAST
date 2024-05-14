@@ -7,6 +7,7 @@ import subprocess
 import os, time
 import requests
 import shutil
+from pathlib import Path
 
 
 def install_ffmpeg():
@@ -15,9 +16,12 @@ def install_ffmpeg():
     print("if this application stops, ensure to restart it")
     print("you can exit this application by closing it on the top right corner")
     print("\nstarting...")
-    time.sleep(3)
+    time.sleep(5)
+
+
     # URL of the file to download
-    url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z"
+    #url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z"
+    url = Path(f'./storage/scripting/ffmpeg.7z')
     # Path to save the downloaded file
     download_path = "ffmpeg-git-full.7z"
     # Path to 7z.exe (adjust this path based on your 7-Zip installation)

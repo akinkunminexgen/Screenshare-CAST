@@ -11,6 +11,11 @@ import shutil
 
 def install_ffmpeg():
     
+    print("Without 7zip the application will stop, you need to install it")
+    print("if this application stops, ensure to restart it")
+    print("you can exit this application by closing it on the top right corner")
+    print("\nstarting...")
+    time.sleep(5)
     # URL of the file to download
     url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z"
     # Path to save the downloaded file
@@ -20,10 +25,10 @@ def install_ffmpeg():
     # Path to save the decompressed folder
     decompressed_folder_path = os.path.expanduser("~\\Documents\\ffmpeg")
     # Path to the existing ffmpeg folder
-    existing_ffmpeg_path = os.path.join(decompressed_folder_path, 'ffmpeg')
+    #existing_ffmpeg_path = os.path.join(decompressed_folder_path, 'ffmpeg')
 
     #check to know if ffmpeg exists
-    if os.path.exists(existing_ffmpeg_path):
+    if os.path.exists(decompressed_folder_path):
         pass
     else:
         #shutil.rmtree(existing_ffmpeg_path)
@@ -71,16 +76,18 @@ def run_ffmpeg(timer, udpip):
     command = f"ffmpeg -f gdigrab -framerate 60 -i desktop -t 00:{tim}:00 -c:v libx264 -preset ultrafast -tune zerolatency -f mpegts {udpip}"
     print(command)
     try:
+        print('generating')
         # Run the ffmpeg command
         process = subprocess.Popen(command, shell=True)
         process.communicate(timeout=int(timer)*60)
         process.kill()
         #process = subprocess.run(command, shell=True)
         print("ffmpeg command executed successfully.")
-        print('generating')
+        
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
         process.kill()
+
 if __name__ == "__main__":
     install_ffmpeg()
-    run_ffmpeg("5", "udp://10.0.0.174:9944")
+    run_ffmpeg("5", "udp://10.0.128.129:5555")

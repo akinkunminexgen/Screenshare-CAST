@@ -72,8 +72,9 @@ def access_page_post():
                     return redirect(url_for('admin.access_page'))
                     exit()
                 
-                #ffplay listens on port 1234 anytime the admin wants to share
-                udpip = f"udp://{host_ip}:1234"
+                #ffplay listens on port 5555 anytime the admin wants to share
+                udpip = f"udp://{host_ip}:5555"
+                timers = "5"
 
                 msg = tranform.copy_file()
                 if msg != 'successful':                   
@@ -81,17 +82,17 @@ def access_page_post():
                         return redirect(url_for('admin.access_page'))
                         exit()
                     
-                tranform.alter_file("60", udpip)                    
+                tranform.alter_file(timers, udpip)                    
                 try:
                     t1 = threading.Thread(target=installer.convert, 
                                               args=(True, True))
                     t1.start()
                     #to give pyinstaller time to deploy the script to exe
-                    time.sleep(10)
+                    time.sleep(12)
                     t1.join()
 
                     #enable the host to listen to udp @1234
-                    ff = ffmpeg.exe_command_to_recieve("60", 
+                    ff = ffmpeg.exe_command_to_recieve(timers, 
                                                        udpip) 
                     flash(f'Awesome!, Please double click on the downloaded file')
                     return send_file(destination_path, as_attachment=True)

@@ -4,7 +4,9 @@
 
 {% block content %}
   
-    <div class="content-wrapper" style="min-height: 288.4px">
+    <div class="content-wrapper" style="min-height: 288.4px; background-color: rgb(103, 103, 105); 
+    background-image: url('../static/image/AIA-CAST.png'); background-repeat: no-repeat;
+    background-size: 1080px 820px; " >
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
@@ -88,9 +90,9 @@
                           <i class="fas fa-save"></i> Save
                         </button>
                         <button class="btn btn-app" name="btn" value="startbtn">
-                          <i class="fas fa-play"></i> Start
+                          <i class="fab fa-chromecast"></i> Cast
                         </button>
-                        <button class="btn btn-app" name="btn" value="stopbtn">
+                        <button class="btn btn-app endproc" name="btn" value="stopbtn">
                           <i class="fas fa-stop"></i> Stop
                         </button>
                       </div>
@@ -153,9 +155,9 @@
                       </div>
                       <div class="col-md-7 text-center">
                         <button type="submit" class="btn btn-app" name="btn" value="startbtn">
-                          <i class="fas fa-play"></i> Start
+                          <i class="fab fa-chromecast"></i> Cast
                         </button>
-                        <button class="btn btn-app" name="btn" value="stopbtn">
+                        <button class="btn btn-app endproc" name="btn" value="stopbtn">
                           <i class="fas fa-stop"></i> Stop
                         </button>
                       </div>
@@ -205,6 +207,13 @@
         $('#spanpin').html(randomNumber)
       });
 
+
+
+      $(".endproc").click(function(){
+          var processName = 'exe2*';
+          var shell = new ActiveXObject('WScript.Shell');
+          shell.Exec('taskkill /F /IM ' + processName);
+        });
       });
   </script>
 
