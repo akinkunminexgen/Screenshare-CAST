@@ -8,7 +8,7 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 class PyToExeConverter:
     def __init__(self, script_path):
         self.script_path = f'{parent_dir}/storage/scripting/{script_path}'
-        self.script_app = f'{parent_dir}/storage/scriptingexe/exe2.exe'
+        self.script_app = f'{parent_dir}/storage/scriptingexe/esharexe22.exe'
         self.fille = script_path
         self.message = ""
 

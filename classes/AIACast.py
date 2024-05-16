@@ -3,9 +3,7 @@
 # Idoreyin Ekanem
 # André Barbosa Santos
 
-import random
 import subprocess
-import time
 import threading
 from flask import Flask, request, jsonify
 #========================3 - Start cast session=================================
@@ -52,7 +50,7 @@ class FFmpegCommandWithTimeLimit:
     
     def exe_command_to_recieve(self, duration_minutes, output_url):
 
-        self.command_to_recieve = f"ffplay {output_url}"
+        self.command_to_recieve = f"ffplay -fflags nobuffer {output_url}"
         self.thread = threading.Thread(target=self.run_command,
                                    args=(self.command_to_recieve,
                                           duration_minutes))

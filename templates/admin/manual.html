@@ -1,0 +1,50 @@
+{% extends "layout/navadmin.html" %}
+{% block title %}Dashboard{% endblock %}
+
+
+{% block content %}
+  
+    <div class="content-wrapper" style="min-height: 288.4px; background-color: rgb(103, 103, 105); 
+    background-image: url('../static/image/AIA-CAST.png'); background-repeat: no-repeat;
+    background-size: 1080px 820px; " >
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>AIA-Cast. (Welcome! {{user['Firstname']}})</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">FFMPEG</li>
+                <li class="breadcrumb-item active"><a href="{{url_for('logout')}}">Logout</a></li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!--Admin section-->
+      <section class="content">
+        <form method="post">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+
+                hgghuhjgugh
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+      <!--Admin section ends-->
+  
+    </div>
+
+{% endblock %}
+
+{% block scripting %}
+
+
+{% endblock %}

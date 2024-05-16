@@ -1,6 +1,4 @@
 from classes.Jsonloader import *
-from pathlib import Path
-from flask import Flask
 
 #class User inheriting the class Jsonloader
 class Ticket(Jsonloader):

