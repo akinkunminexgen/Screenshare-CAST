@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="../static/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="../static/css/OverlayScrollbars.min.css">
+  <!-- toastr -->
+  <link rel="stylesheet" href="../static/css/toastr.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     {% block ForNav %}{% endblock %}
@@ -37,10 +39,31 @@
 <script src="../static/js/adminlte.min.js"></script>
 <!-- Filterizr-->
 <script src="../static/js/jquery.filterizr.min.js"></script>
-<!-- AdminLTE for demo purposes
-<script src="../static/js/demo.js"></script>
- Page specific script -->
-    
+<!-- Toastr for alert-->
+<script src="../static/js/toastr.min.js"></script>
+<script>
+$(document).ready(function(){
+// Get Flash messages from Flask
+const messages = '{{ get_flashed_messages(with_categories=true) | tojson }}';
+            
+            var newmessages = JSON.parse(messages)
+                    // Display Toastr notifications from Flash
+                    newmessages.forEach(function(message) {
+                        const category = message[0];
+                        const text = message[1];
+                        
+                        if (category === 'success') {
+                            toastr.success(text, 'Success');
+                        } else if (category === 'error') {
+                            toastr.error(text, 'Error');
+                        } else if (category === 'warning') {
+                            toastr.warning(text, 'Warning');
+                        } else if (category === 'info') {
+                            toastr.info(text, 'Info');
+                        }
+                      });
+            });
+</script>
 {% block scripting %}{% endblock %}
 </body>
 </html>

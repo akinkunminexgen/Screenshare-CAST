@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, Response, abort, send_from_directory, send_file
 from jinja2 import TemplateNotFound
+from flask_bcrypt import generate_password_hash
 import os, sys, threading, time
 from classes.AIACast import FFmpegCommandWithTimeLimit
 from classes.AIARemake import TransformToExe
@@ -10,7 +11,6 @@ from pathlib import Path
 sys.path.insert(1, "/".join(os.path.realpath(__file__).split("/")[0:-2]))
 from src.models.User import User
 from src.models.Ticket import Ticket
-
 
 
 adminctrl = Blueprint('admin', __name__)
@@ -26,36 +26,16 @@ destination_path = Path(f'./storage/scriptingexe/esharexe22.exe')
 
 
 #Routing to the User upload page page for both GET and POST
-@adminctrl.route('/', methods=['GET'])
+@adminctrl.route('', methods=['GET'])
 def access_page():
     if 'username' in session:
         the_user = user.find_data(session['username'])
         return render_template('admin/index.html', user = the_user)
     else:
-        return redirect(url_for('login.login_GET'))
-    
-
-#Routing to the User upload page page for both GET and POST
-@adminctrl.route('/downloadffmpeg')
-def download_ffmpeg():
-    ffmpeg_download = Path(f'./storage/scripting/ffmpeg-git-full.7z')
-    return send_file(ffmpeg_download, as_attachment=True)
-
-
-#Routing to the User upload page page for both GET and POST
-@adminctrl.route('/manual')
-def manual():
-    if 'username' in session:
-        the_user = user.find_data(session['username'])
-        return render_template('admin/manual.html', user = the_user)
-    else:
-        return redirect(url_for('login.login_GET'))
-    
-    
-    
+        return redirect(url_for('login.login_GET'))  
 
         
-@adminctrl.route('/', methods=['POST'])
+@adminctrl.route('', methods=['POST'])
 def access_page_post():
 
     #checking if session exists
@@ -67,7 +47,7 @@ def access_page_post():
 
                 if request.form['pin'] == "" or request.form['timer'] == "0":
                     #validating the form
-                    flash('Generate a ticket!/Set timer')
+                    flash('Generate a ticket!/Set timer', 'error')
                     return redirect(url_for('admin.access_page'))
                 
                 else:
@@ -81,11 +61,11 @@ def access_page_post():
                     udpip = f"udp://{host_ip}:{request.form['pin']}"
                     ff = ffmpeg.exe_command_to_recieve(request.form['timer'], 
                                                        udpip)                    
-                    flash(f"{ff}")
+                    flash(f"{ff}", 'success')
                     return redirect(url_for('admin.access_page'))
                 
             elif request.form['btn'] == "startbtn":
-                if host_ip == "10.0.0.1741":
+                if host_ip == "10.0.0.1741gvdg":
                     #if client is host, screen share should not execute
                     flash("This is the host! (session cannot be enabled!)")
                     return redirect(url_for('admin.access_page'))
@@ -97,7 +77,7 @@ def access_page_post():
 
                 msg = tranform.copy_file()
                 if msg != 'successful':                   
-                        flash('There is an issue, (contact Admin)')
+                        flash('There is an issue, (contact Admin)', 'error')
                         return redirect(url_for('admin.access_page'))
                         exit()
                     
@@ -113,7 +93,7 @@ def access_page_post():
                     #enable the host to listen to udp @1234
                     ff = ffmpeg.exe_command_to_recieve(timers, 
                                                        udpip) 
-                    flash(f'Awesome!, Please double click on the downloaded file')
+                    
                     return send_file(destination_path, as_attachment=True)
                 except Exception as e:
                     abort(404, description="Resource not found")
@@ -122,13 +102,13 @@ def access_page_post():
                 #kill the ffplay process
                 ffmpeg.killer()
                 #ffmpeg.killer_client()
-                flash(f'Process Killed! ')                
+                flash(f'Process Killed!', 'success')                
                 return redirect(url_for('admin.access_page'))
             
         else:            
             #check for ip
             if host_ip == None:
-                flash('Network connection issue!')
+                flash('Network connection issue!', 'warning')
                 return redirect(url_for('admin.access_page'))
                 exit()
             
@@ -137,12 +117,12 @@ def access_page_post():
 
                 if ticket == None:
 
-                    flash('That token is unavailable!')
+                    flash('That token is unavailable!', 'warning')
                     return redirect(url_for('admin.access_page'))
                 else:
                     msg = tranform.copy_file()
                     if msg != 'successful':                   
-                        flash('There is an issue, (contact Admin)')
+                        flash('There is an issue, (contact Admin)', 'error')
                         return redirect(url_for('admin.access_page'))
                         exit()
                     
@@ -158,7 +138,8 @@ def access_page_post():
                         time.sleep(12)
                         t1.join()
 
-                        flash(f'Awesome! Pls double click on the downloaded file')
+                        ticket = tickets.delete_data(request.form['pin'])
+
                         return send_file(destination_path, as_attachment=True)
                     except Exception as e:
                         abort(404, description="Resource not found")
@@ -166,7 +147,7 @@ def access_page_post():
             else:
                  try:
                      ffmpeg.killer()
-                     flash(f'Process Killed! Close the exe2 file')
+                     flash(f'Process Killed! Close the exe2 file', 'success')
                      return redirect(url_for('admin.access_page'))
                  except FileNotFoundError:            
                     abort(404, description="Resource not found")
@@ -179,10 +160,87 @@ def access_page_post():
 
 
 
+@adminctrl.route('/user')
+def user_page():
+    if 'username' in session:
+        admin = user.find_data(session['username'])
+        #not grant permission for ordinary user
+        if admin['role'].lower() != 'admin':
+            flash("Permission denied!", "error")
+            return redirect(url_for('admin.access_page'))
+            exit()        
+        
+        all_user = user.get_data()
+        return render_template('admin/user.html', user = admin, 
+                               others = all_user)
+    else:
+        return redirect(url_for('login.login_GET'))
+
+
+@adminctrl.route('/add', methods=['GET'])
+def add_user():
+    if 'username' in session:
+        the_user = user.find_data(session['username'])
+        return render_template('admin/useradd.html', user = the_user)
+    else:
+        return redirect(url_for('login.login_GET'))
     
 
+@adminctrl.route('/add', methods=['POST'])
+def add_user_post():
+    
+    password = generate_password_hash(request.form['password']).decode('utf-8')
+
+    dictn ={request.form['Username'] : {
+       "Firstname": request.form['Firstname'],
+        "Lastname": request.form['Lastname'],
+        "sex": request.form['gender'],
+        "password": password,
+        "role": request.form['role']
+    }}
+
+    msg = user.create(dictn)
+    flash(msg, 'success')
+    return redirect(url_for('admin.add_user'))
 
 
+@adminctrl.route('/delete')
+def delete_user():
+    if 'username' in session:
+        admin = user.find_data(session['username'])
+        if admin['role'].lower() != 'admin':
+            flash("Permission denied!", "error")
+            return redirect(url_for('admin.access_page'))
+            exit()
+
+        usrn = request.args.get('id')
+        if session['username'] == usrn:
+            flash("Permission denied", "error")
+            return redirect(url_for('admin.user_page'))
+            exit()
+
+        del_user = user.delete_data(usrn)
+        flash(del_user[1], del_user[0])
+        return redirect(url_for('admin.user_page'))
+    else:
+        return redirect(url_for('login.login_GET'))
+
+
+#Routing to the User upload page page for both GET and POST
+@adminctrl.route('/manual')
+def manual():
+    if 'username' in session:
+        the_user = user.find_data(session['username'])
+        return render_template('admin/manual.html', user = the_user)
+    else:
+        return redirect(url_for('login.login_GET'))
+
+
+#Routing for downloading .exe file
+@adminctrl.route('/downloadffmpeg')
+def download_ffmpeg():
+    ffmpeg_download = Path(f'./storage/scripting/ffmpeg-git-full.7z')
+    return send_file(ffmpeg_download, as_attachment=True)
 
 
 

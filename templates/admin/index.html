@@ -15,9 +15,9 @@
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">FFMPEG</li>
-                <li class="breadcrumb-item active"><a href="{{url_for('logout')}}">Logout</a></li>
+                <li class="breadcrumb-item"><a href="{{url_for('admin.access_page')}}">Home</a></li>
+                <li class="breadcrumb-item active text-warning">FFMPEG</li>
+                <li class="breadcrumb-item"><a href="{{url_for('logout')}}">Logout</a></li>
               </ol>
             </div>
           </div>
@@ -32,27 +32,16 @@
               <div class="col-md-6">
 
                 <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">For Admin</h3>
+                  <div class="card-header" style="background-color: rgb(132, 132, 132); color: rgb(4, 0, 0);">
+                    <h3 class="card-title">ADMIN</h3>
                   </div>
                   <div class="card-body">
-                    <div>{% with messages = get_flashed_messages() %}
-                      {% if messages %}
-                        <div class="col-lg mx-auto bg-danger text-primary text-center">
-                        {% for message in messages %}
-                          {{ message | safe }}
-                        {% endfor %}
-                        </div>
-                      {% endif %}
-                    {% endwith %} </div>
-
-
                     <div class="row">
                       <div class="col-sm-5">
                         <h5>Create new session: </h5>
                       </div>
                       <div class="col-sm-7 text-center">
-                        <a class="btn btn-app " id="pin_create">
+                        <a class="btn btn-app " id="pin_create" title="Create a ticket">
                           <i class="fas fa-key"></i> Create
                         </a>
                         <span class="text-success" id="spanpin"></span>
@@ -66,7 +55,7 @@
                       <div class="col-md-7 text-center">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <button type="button" id="add5" value="5" class="btn btn-primary cal" >
+                            <button type="button" id="add5" value="5" class="btn btn-primary cal" title="Add five on every click" >
                               <i class="fas fa-plus"></i> 5
                             </button>
                           </div>
@@ -74,7 +63,7 @@
                           <input name="to_check" type="hidden" value="admin" class="form-control">
                           <input id="calculate" name="timer" type="text" value="0" class="form-control" readonly>
                           <span class="input-group-append">
-                            <button type="button" id="minus1" value="1" class="btn btn-warning cal">
+                            <button type="button" id="minus1" value="1" class="btn btn-warning cal" title="Deduct one on every click">
                               <i class="fas fa-minus"></i> 1
                             </button>
                           </span>
@@ -86,13 +75,13 @@
                         <h5>Initiate:</h5>
                       </div>
                       <div class="col-md-7 text-center">
-                        <button type="submit" class="btn btn-app" name="btn" value="savebtn">
+                        <button type="submit" class="btn btn-app" id="saveit" name="btn" value="savebtn" title="save ticket and time">
                           <i class="fas fa-save"></i> Save
                         </button>
-                        <button class="btn btn-app" name="btn" value="startbtn">
+                        <button class="btn btn-app cast2btn" name="btn" value="startbtn" title="Start casting to the server">
                           <i class="fab fa-chromecast"></i> Cast
                         </button>
-                        <button class="btn btn-app endproc" name="btn" value="stopbtn">
+                        <button class="btn btn-app endproc" name="btn" value="stopbtn" title="Stop casting">
                           <i class="fas fa-stop"></i> Stop
                         </button>
                       </div>
@@ -117,21 +106,10 @@
               <div class="col-md-6">
 
                 <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">For User</h3>
+                  <div class="card-header" style="background-color: rgb(132, 132, 132); color: rgb(4, 0, 0);">
+                    <h3 class="card-title">USER</h3>
                   </div>
                   <div class="card-body">
-                    <div>{% with messages = get_flashed_messages() %}
-                      {% if messages %}
-                        <div class="col-lg mx-auto bg-danger text-primary text-center">
-                        {% for message in messages %}
-                          {{ message }}
-                        {% endfor %}
-                        </div>
-                      {% endif %}
-                    {% endwith %} </div>
-
-
                     <div class="row">
                       <div class="col-sm-5">
                         <h5>Enter ticket: </h5>
@@ -144,7 +122,7 @@
                             </a>
                           </div>
                           <!-- /btn-group -->
-                          <input name="pin" type="text" class="form-control" required>
+                          <input name="pin" type="text" class="form-control" id="stud" title="You need a ticket from the Admin">
                           <input name="to_check" type="hidden" value="user" class="form-control">
                         </div>
                       </div>
@@ -154,10 +132,10 @@
                         <h5>Initiate:</h5>
                       </div>
                       <div class="col-md-7 text-center">
-                        <button type="submit" class="btn btn-app" name="btn" value="startbtn">
+                        <button type="submit" class="btn btn-app castbtn" name="btn" value="startbtn" title="Start casting to the server">
                           <i class="fab fa-chromecast"></i> Cast
                         </button>
-                        <button class="btn btn-app endproc" name="btn" value="stopbtn">
+                        <button class="btn btn-app endproc" name="btn" value="stopbtn" title=" Stop casting to the server">
                           <i class="fas fa-stop"></i> Stop
                         </button>
                       </div>
@@ -183,6 +161,7 @@
 <script>
   $(document).ready(function(){
     var cal = 0;
+    //to add and deduct to the calculate input feild
     $(".cal").click(function(){
       var add5 = parseInt($("#add5").val());
       var minus1 = parseInt($("#minus1").val());
@@ -201,6 +180,9 @@
     });
 
     
+  });
+
+    //to generate a ticket to create session for user
     $("#pin_create").click(function(){
         var randomNumber = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000; 
         $("#pin").val(randomNumber);
@@ -214,7 +196,46 @@
           var shell = new ActiveXObject('WScript.Shell');
           shell.Exec('taskkill /F /IM ' + processName);
         });
-      });
+
+
+      $('#saveit').click(function(event) {
+                if ($('#pin').val() == "" ||  $('#calculate').val() == "0") {
+                    // If the form is invalid, show an error message
+                    toastr.error('Generate ticket and timer', 'input Empty');
+                    event.preventDefault(); // Prevent the form from submitting
+                    return;
+                }else{                  
+                  toastr.info('Download in Progress!', 'info');                
+                }               
+                 
+              });
+
+      $('.cast2btn').click(function(event) {
+                                
+                toastr.info('Download in Progress!', 'info');    
+                
+                setTimeout(() => {
+                    $('.cast2btn').prop('disabled', true);
+                }, 1000);
+            });
+
+    $('.castbtn').click(function(event) {
+                if ($('#stud').val() == "") {
+                    // If the form is invalid, show an error message
+                    toastr.error('Please fill out the required fields!', 'input Empty');
+                    event.preventDefault(); // Prevent the form from submitting
+                    return;
+                }else{                  
+                  toastr.info('Download in Progress!', 'info'); 
+                  setTimeout(() => {
+                    $('.cast2btn').prop('disabled', true);
+                }, 1000);               
+                }               
+                 
+              });
+
+             
+     
   </script>
 
 {% endblock %}

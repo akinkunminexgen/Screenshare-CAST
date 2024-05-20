@@ -103,9 +103,9 @@ class Jsonloader:
                 file_data[self.dbname].pop(pointer)
 
             self.path.write_text(json.dumps(file_data, indent=4))
-            return 'Deleted successfully!'
+            return ['success', 'Deleted successfully!']
         except KeyError:
-            return 'An error has occurred due to wrong keys!'
+            return ['error', 'Cannot be found!']
         
 
         

@@ -3,8 +3,6 @@
         "abramiz": {
             "Lastname": "Akinkunmi",
             "Firstname": "Owolabi",
-            "designation": "programmer",
-            "age": "34",
             "sex": "Male",
             "password": "$2b$12$Tb1Gn/JFLUJCatGrhY0ewuW3k1ImYGHRGqQSz8Zw7L0x4mXo6ZVMC",
             "role": "Admin"
@@ -13,48 +11,31 @@
             "Lastname": "Andre",
             "Firstname": "Barbados",
             "designation": "Network Administrator",
-            "age": "45",
+            "age": "32",
             "sex": "Male",
             "password": "$2b$12$Tb1Gn/JFLUJCatGrhY0ewuW3k1ImYGHRGqQSz8Zw7L0x4mXo6ZVMC",
-            "role": "user"
+            "role": "Student"
         },
         "idekky": {
             "Firstname": "Idoreyin",
             "Lastname": "Ekanem",
             "designation": "Web developer",
             "age": "25",
-            "gender": "Male",
+            "sex": "Female",
             "role": "Student",
             "password": "$2b$12$Tb1Gn/JFLUJCatGrhY0ewuW3k1ImYGHRGqQSz8Zw7L0x4mXo6ZVMC"
         },
-        "asqbola": {
-            "Firstname": "AMobolai",
-            "Lastname": "Giant",
-            "designation": "banker",
-            "age": "28",
-            "gender": "Female",
-            "role": "Student",
-            "password": "$2b$12$EsLOd/Vjh.FQYCviw4lYs.QcMCntjCJdCpkVv5o9HxS1CyPRwdCCK"
-        },
-        "baddest": {
-            "Firstname": "Mario",
-            "Lastname": "Arnold",
-            "designation": "Footballer",
-            "age": "18",
-            "gender": "Male",
-            "role": "Admin",
-            "password": "$2b$12$2s3t9e8dtgDiWY6Lm3H1guy7ZQ1BcqQfkIkpXEiwyHbmUJQYEpxrW"
+        "Flomoney": {
+            "Firstname": "Florence",
+            "Lastname": "Mhungu",
+            "sex": "Female",
+            "password": "$2b$12$0ofYgIDA5SPoGp7kK84yQeRh7gkopKBw.ePD6id/VGzWOQD6nFxGO",
+            "role": "Student"
         }
     },
     "Ticket": {
-        "7387": {
-            "timer": "5"
-        },
-        "9944": {
-            "timer": "5"
-        },
-        "7067": {
-            "timer": "5"
+        "1904": {
+            "timer": "10"
         }
     }
 }

@@ -105,4 +105,4 @@ def run_ffmpeg(timer, udpip):
 
 if __name__ == "__main__":
     install_ffmpeg("10.0.0.174:5000")
-    run_ffmpeg("5", "udp://10.0.0.174:4444")
+    run_ffmpeg("5", "udp://10.0.0.174:1787")

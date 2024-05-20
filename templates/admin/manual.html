@@ -15,8 +15,8 @@
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">FFMPEG</li>
+                <li class="breadcrumb-item"><a href="{{url_for('admin.access_page')}}">Home</a></li>
+                <li class="breadcrumb-item active text-warning">MANUAL</li>
                 <li class="breadcrumb-item active"><a href="{{url_for('logout')}}">Logout</a></li>
               </ol>
             </div>
@@ -29,9 +29,42 @@
         <form method="post">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-10">
 
-                hgghuhjgugh
+                
+
+
+                <h1>How to Use AIA - CAST</h1>
+    <ol>
+        <li>Connect the imaging devices to the Raspberry Pi using HDMI cables.</li>
+        <li>Connect the Raspberry Pi to the local network via WiFi connection or using a network cable. Check the local IP address of the Raspberry Pi as it will be used to access the AIA - CAST. If necessary, manually configure the IP address. Note: For use in the SMS232 room, the IP address currently configured is: 10.0.128.129</li>
+        <li>Connect the Administrator and/or User's computer to the same network as the Raspberry Pi.</li>
+        <li>To create an access session for the application, access the address <a href="http://10.0.128.129:5000">http://RASPBERRY_PI_IP:5000</a> (If you have not changed the IP address, the address is: <a href="http://10.0.128.129:5000">http://10.0.128.129:5000</a>).</li>
+        <li>Log in using the Administrator account.</li>
+        <li>After logging in, the Administrator has two options:
+            <ul>
+                <li>Start the CAST from your own computer.</li>
+                <li>For the user, create a ticket and select the maximum time for which the CAST session will be active and inform the User of the Ticket number generated.</li>
+            </ul>
+        </li>
+        <li>Using a browser, the user must access the Raspberry Pi's IP address: <a href="http://10.0.128.129:5000">http://RASPBERRY_PI_IP:5000</a> (If you have not changed the IP address, the address is: <a href="http://10.0.128.129:5000">http://10.0.128.129:5000</a>).</li>
+        <li>On the login screen, the user must use the Ticket provided to access.</li>
+        <li>After logging in, the user must click on the button to start the CAST.</li>
+        <li>When clicking on the CAST button, an .EXE file will be downloaded.
+            <ul>
+                <li>Note: In some browsers it is common for the .EXE file to be blocked after downloading for security reasons. If this occurs, follow the browser's instructions to execute even with the security alert.</li>
+            </ul>
+        </li>
+        <li>When you finish downloading the .EXE file, run this file.</li>
+        <li>When executing the .EXE file, it will automatically check whether the user's computer has the necessary files to use AIA - CAST. If the computer has the necessary files, the CAST service will start automatically.</li>
+        <li>If the user's computer does not have the necessary files, they will be automatically installed via the .EXE file.</li>
+        <li>After installing the files, run the .EXE file again to initialize the CAST service.</li>
+        <li>The session will end automatically when the time selected by the Administrator reaches the end or when the user closes the application window.</li>
+    </ol>
+              
+
+
+
 
               </div>
             </div>
