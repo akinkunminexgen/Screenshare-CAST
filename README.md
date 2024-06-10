@@ -14,8 +14,11 @@ pip install pyinstaller
 ```
 ## Usage
 The two devices has to be on the same network
+
 Streaming session can be initiated by the administrator (with ticket and timer) using FFMPEG conmand through the system terminal
+
 7zip has to be installed before executing the .exe file
+
 .executable file will be generated so as to send frames through UDP protocol to the server
 
 
