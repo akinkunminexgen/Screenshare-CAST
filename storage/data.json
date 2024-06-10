@@ -1,15 +1,15 @@
 {
     "User": {
         "abramiz": {
-            "Lastname": "Akinkunmi",
-            "Firstname": "Owolabi",
+            "Lastname": "Joe",
+            "Firstname": "Biden",
             "sex": "Male",
             "password": "$2b$12$Tb1Gn/JFLUJCatGrhY0ewuW3k1ImYGHRGqQSz8Zw7L0x4mXo6ZVMC",
             "role": "Admin"
         },
         "andre": {
-            "Lastname": "Andre",
-            "Firstname": "Barbados",
+            "Lastname": "Elizabeth",
+            "Firstname": "Pen",
             "designation": "Network Administrator",
             "age": "32",
             "sex": "Male",
@@ -17,8 +17,8 @@
             "role": "Student"
         },
         "idekky": {
-            "Firstname": "Idoreyin",
-            "Lastname": "Ekanem",
+            "Firstname": "Marc",
+            "Lastname": "Miller",
             "designation": "Web developer",
             "age": "25",
             "sex": "Female",
@@ -27,7 +27,7 @@
         },
         "Flomoney": {
             "Firstname": "Florence",
-            "Lastname": "Mhungu",
+            "Lastname": "Katingale",
             "sex": "Female",
             "password": "$2b$12$0ofYgIDA5SPoGp7kK84yQeRh7gkopKBw.ePD6id/VGzWOQD6nFxGO",
             "role": "Student"
